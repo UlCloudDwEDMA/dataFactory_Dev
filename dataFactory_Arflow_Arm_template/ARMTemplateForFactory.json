@@ -1,0 +1,93 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "factoryName": {
+            "type": "string",
+            "metadata": "Data Factory name",
+            "defaultValue": "dfadevcdwncus02"
+        }
+    },
+    "variables": {
+        "factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+    },
+    "resources": [
+        {
+            "name": "[concat(parameters('factoryName'), '/afwdevcdwncus01')]",
+            "type": "Microsoft.DataFactory/factories/integrationRuntimes",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "type": "Airflow",
+                "description": "afwdevcdwncus01",
+                "typeProperties": {
+                    "computeProperties": {
+                        "location": "South Central US",
+                        "computeSize": "Large",
+                        "extraNodes": 0,
+                        "enableAutoscale": true,
+                        "autoScaleMinNodes": 8,
+                        "autoScaleMaxNodes": 16,
+                        "clusterIP": "4.151.227.182"
+                    },
+                    "airflowProperties": {
+                        "airflowVersion": "2.6.3",
+                        "airflowWebUrl": "https://98522376411724.southcentralus.airflow.svc.datafactory.azure.com/login/",
+                        "gitSyncProperties": {
+                            "gitServiceType": "Github",
+                            "gitCredentialType": "PAT",
+                            "repo": "https://github.com/Underwriters-Labs/EDMA-CDW-Airflow.git",
+                            "branch": "cicd",
+                            "username": "UlCloudDwEDMA",
+                            "encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJTZWN1cmVTdHJpbmciLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDVBMTk2NkJGLTM5NzYtNDBCQy05NTlFLTMzNjhFMTlCMkVDOF9kNzgwYTM0NS1lODk2LTQ2MDMtYTkzMC01Y2IwZjNjZmQ5MjAiDQp9"
+                        },
+                        "airflowConfigurationOverrides": {
+                            "AIRFLOW__SCHEDULER__PARSING_PROCESSES": "8",
+                            "AIRFLOW__CORE__PARALLELISM": "128",
+                            "AIRFLOW__CORE__MAX_ACTIVE_TASKS_PER_DAG": "90",
+                            "AIRFLOW__WEBSERVER__DAG_DEFAULT_VIEW": "graph",
+                            "AIRFLOW__DATABASE__LOAD_DEFAULT_CONNECTIONS": "False"
+                        },
+                        "environmentVariables": {
+                            "CDW_DAG_HOME": "/opt/airflow/git/EDMA-CDW-Airflow.git/dags",
+                            "CDW_SNOWFLAKE_URL": "https://app.snowflake.com/central-us.azure/ul_datahub_nonprod/",
+                            "CDW_INFA_URL": "https://dm-us.informaticacloud.com/ma/sso/cTHkDDQ8MOqgFALFbuPY0C",
+                            "CDW_AIRFLOW_REPO": "https://github.com/Underwriters-Labs/EDMA-CDW-Airflow/tree/dev",
+                            "CDW_DELINEA_URL": "https://uls.secretservercloud.com",
+                            "CDW_DB_CONN_ID": "cdw_db_conn_id",
+                            "CDW_CONFIG_DB": "DEV_CDW_DB",
+                            "CDW_CONFIG_SCHEMA": "CDW",
+                            "CDW_ADLS_STAGE": "CDW_ADLS_STAGE",
+                            "CDW_CONN_DELINEA_ENV": "_CDW_DEV",
+                            "CDW_SOURCE_DB": "DEV_SOURCE_DB",
+                            "CDW_STAGE_DB": "DEV_STAGE_DB",
+                            "CDW_CONFORM_DB": "DEV_CONFORM_DB",
+                            "restartweb": "1"
+                        },
+                        "airflowRequirements": [
+                            "azure-storage-blob==12.16.0",
+                            "python-tss-sdk==1.2.2",
+                            "pyarrow==14.0.0",
+                            "Office365-REST-Python-Client==2.4.0",
+                            "simple-salesforce==1.12.3",
+                            "openpyxl==3.1.2",
+                            "oracledb==2.0.1",
+                            "emoji==2.2.0",
+                            "singlestoredb==1.3.1",
+                            "ldap3==2.9.1",
+                            "psycopg2-binary==2.9.6",
+                            "paramiko==3.1.0",
+                            "sshtunnel==0.4.0",
+                            "pyodbc==4.0.35"
+                        ],
+                        "enableAADIntegration": true,
+                        "enableTriggerers": false,
+                        "airflowEntityReferences": [],
+                        "encryptedSecrets": [],
+                        "secrets": []
+                    }
+                }
+            },
+            "dependsOn": []
+        }
+    ]
+}

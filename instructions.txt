@@ -1,0 +1,20 @@
+PS C:\Users\32946\Downloads\cdw_resources_ARM\rb_devAirflow> New-AzResourceGroupDeployment -name deployAF -TemplateFile .\ARMTemplateForFactory.json -TemplateParameterFile .\ARMTemplateParametersForFactory.json -ResourceGroupName rgdevcdwncus01
+
+
+DeploymentName          : deployAF
+ResourceGroupName       : rgdevcdwncus01
+ProvisioningState       : Succeeded
+Timestamp               : 8/21/2024 12:00:08 PM
+Mode                    : Incremental
+TemplateLink            :
+Parameters              :
+                          Name             Type                       Value
+                          ===============  =========================  ==========
+                          factoryName      String                     "dfadevcdwncus02"
+
+Outputs                 :
+DeploymentDebugLogLevel :
+
+
+
+PS C:\Users\32946\Downloads\cdw_resources_ARM\rb_devAirflow>
